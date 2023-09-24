@@ -48,7 +48,7 @@ Window {
             radius: width*0.5
             border {
                 color: clockBorderColor
-                width: width*0.05
+                width: width*0.03
             }
             color: "transparent"
             Repeater {
