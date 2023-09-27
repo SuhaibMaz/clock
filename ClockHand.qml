@@ -11,6 +11,7 @@ Item {
     property string handType
     property real widthPer
     property real heightPer
+    property real tempRotateAngle : 1
     function handDraging() {
         root.run = false
     }
@@ -31,6 +32,7 @@ Item {
             clockBody.secondsOfDay = oldHours + oldMinutes + newSeconds
         }
         clockHandRoot.rotation = 0
+        tempRotateAngle = 1
     }
     Rectangle {
         id: clockHandRoot
@@ -51,11 +53,12 @@ Item {
             transform: Rotation {
                 origin.x:hand.width/2 ;
                 origin.y:hand.height;
-                angle: rotationAngle
+                angle: tempRotateAngle === 0 ? tempRotateAngle : rotationAngle
             }
             MouseArea{
                 anchors.fill: parent;
                 onPositionChanged:  (mouseX, mouseY) => {
+                                        tempRotateAngle = 0
                                         var point =  mapToItem (itemRoot, mouseX, mouseY);
                                         var diffX = (point.x - itemRoot.centerX);
                                         var diffY = -1 * (point.y - itemRoot.centerY);

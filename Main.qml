@@ -9,8 +9,6 @@ Window {
 
     function updateTime(secondsOfDay) {
         clockBody.secondsOfDay = secondsOfDay
-//        console.log(`${clockBody.hours}:${clockBody.minutes}:${clockBody.seconds}`)
-//        console.log((clockBody.hours > 12 ? clockBody.hours - 12 : clockBody.hours + (clockBody.minutes/100)), (clockBody.hours > 12 ? clockBody.hours - 12 : clockBody.hours + (clockBody.minutes/100)) * 360 / 12)
     }
 
     function handDraging() {
@@ -19,6 +17,10 @@ Window {
     function handStoppedDragging() {
         root.run = true
     }
+    function updateAmPm() {
+        clockBody.secondsOfDay = clockBody.hours > 12 ? clockBody.secondsOfDay - (12*3600) : clockBody.secondsOfDay + (12*3600)
+    }
+
     Item {
         id: root
         property bool run: true;
@@ -51,8 +53,36 @@ Window {
                 width: width*0.03
             }
             color: "transparent"
+            Rectangle {
+                id: amAndPmSwitch
+                color: "transparent"
+                x: 0
+                y: 0
+                width: parent.width * 0.10
+                height: parent.height * 0.10
+                border {
+                    color: "black"
+                    width: width*0.03
+                }
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        clockBody.secondsOfDay = clockBody.hours > 12 ? clockBody.secondsOfDay - (12*3600) : clockBody.secondsOfDay + (12*3600)
+                    }
+                }
+
+                Text {
+                    color: "black"
+                    text: `${clockBody.aAndpM === "AM" ? "PM" : "AM"}`
+                    anchors {
+                        centerIn: parent
+                    }
+                    font.pointSize: (parent.width * 0.25)
+                }
+            }
+
             Repeater {
-                id:numbersRepeater
+                id: numbersRepeater
                 anchors.fill: parent
                 property real originX: numbersRepeater.width/2
                 property real originY: numbersRepeater.height/2
