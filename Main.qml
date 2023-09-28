@@ -10,13 +10,6 @@ Window {
     function updateTime(secondsOfDay) {
         clockBody.secondsOfDay = secondsOfDay
     }
-
-    function handDraging() {
-        root.run = false
-    }
-    function handStoppedDragging() {
-        root.run = true
-    }
     function updateAmPm() {
         clockBody.secondsOfDay = clockBody.hours > 12 ? clockBody.secondsOfDay - (12*3600) : clockBody.secondsOfDay + (12*3600)
     }
@@ -77,7 +70,7 @@ Window {
                     anchors {
                         centerIn: parent
                     }
-                    font.pointSize: (parent.width * 0.25)
+                    font.pointSize: parent.width * 0.25
                 }
             }
 
@@ -130,13 +123,13 @@ Window {
                 heightPer: 0.4
             }
             Text {
-                color: "black"
+                color: "gray"
                 text: `${clockBody.hours > 12 ? ('0' + (clockBody.hours - 12)).slice(-2) : ('0' + clockBody.hours).slice(-2)}:${('0' + clockBody.minutes).slice(-2)}:${('0' + clockBody.seconds).slice(-2)} ${clockBody.aAndpM}`
                 anchors {
                     centerIn: parent
                 }
-                bottomPadding: parent.height * 0.15
-                font.pointSize: (parent.width * 0.07)
+                bottomPadding: parent.height * 0.30
+                font.pointSize: parent.width >= 100 ? parent.width/12:10
             }
         }
 
